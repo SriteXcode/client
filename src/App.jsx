@@ -597,20 +597,23 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useNavigate, useState, useEffect } from 'react';
 import {
   ChevronDown, Mail, Phone, MapPin, Github, Linkedin, Twitter, Book, FileText,
   Search, Plus, Edit, Trash2, Send, User, Calendar, Award, Briefcase, Eye,
   GraduationCap, Users, Star, Globe, BookOpen, Presentation
 } from 'lucide-react';
+import hero from "../src/assets/hero.png";
+import hero2 from "../src/assets/hero2.jpg";
 
 // Academic Data for Dr. Aditya Khamparia
 const academicData = {
   profile: {
     name: "Dr. Aditya Khamparia",
     title: "Researcher · Learner · Educator",
+    aboutHero : "Dr. Aditya Khamparia is an eminent academician who plays versatile roles juggling between lectures, research, publications, consultancy, community service, and PhD supervision.",
     about: "Dr. Aditya Khamparia is an eminent academician who plays versatile roles juggling between lectures, research, publications, consultancy, community service, and PhD supervision. With 8 years of rich expertise in teaching and one year in industry, he focuses on rational and practical learning. He has contributed massive literature in Educational Technologies, Intelligent Data Analysis, Nature-Inspired Computing, Machine Learning, Deep Learning and Soft Computing.",
-    image: "/api/placeholder/400/400",
+    image: "https://ik.imagekit.io/nx2mu5rdoc/dummy/hero.png?updatedAt=1756370356605",
     email: "aditya.khamparia88@gmail.com",
     phone: "+91 XXX XXX XXXX",
     location: "Lucknow, Uttar Pradesh, India"
@@ -868,6 +871,7 @@ const academicData = {
 const STORAGE_KEY = 'academic_portfolio_data_v1';
 
 const AcademicPortfolio = () => {
+  // const navigate = useNavigate();
   const [data, setData] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -937,7 +941,7 @@ const AcademicPortfolio = () => {
           <div>
             <h1 className="text-5xl font-bold text-gray-900 mb-4">{data.profile.name}</h1>
             <p className="text-2xl text-blue-600 font-semibold mb-4">{data.profile.title}</p>
-            <p className="text-lg text-gray-600 mb-8">{data.profile.about}</p>
+            <p className="text-lg text-gray-600 mb-8">{data.profile.about.split(" ").slice(0, 22).join(" ")}</p>
             
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -962,9 +966,14 @@ const AcademicPortfolio = () => {
             <button onClick={() => scrollToSection('contact')} className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors mr-4">Contact Me</button>
             <button onClick={() => scrollToSection('research')} className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">View Research</button>
           </div>
-          <div className="flex justify-center">
-            <img src={data.profile.image} alt={data.profile.name} className="w-96 h-96 object-cover rounded-full shadow-2xl" />
-          </div>
+          <div className="flex justify-center items-center w-86 h-98 ml-32 overflow-hidden rounded-b-full shadow-2xl">
+  <img
+    src={hero}
+    alt={data.profile.name}
+    className="w-full h-full object-cover"
+  />
+</div>
+
         </div>
       </div>
     </section>
@@ -981,7 +990,7 @@ const AcademicPortfolio = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
           <div>
-            <img src={data.profile.image} alt={data.profile.name} className="w-full h-96 object-cover rounded-lg shadow-lg mb-6" />
+            <img src={hero2} alt={hero2} className="w-full h-96 object-cover rounded-lg shadow-lg mb-6" />
             
             {/* Research Areas */}
             <div className="bg-gray-50 p-6 rounded-lg">
@@ -1403,6 +1412,7 @@ const AcademicPortfolio = () => {
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">© {new Date().getFullYear()} {data.profile.name}. All rights reserved.</p>
           <button onClick={() => setIsAdmin(true)} className=" text-xs text-gray-900 mt-2 hover:text-gray-400 transition-colors">Admin</button>
+          {/* <button onClick={() => navigate("/admin")} className=" text-xs text-gray-900 mt-2 hover:text-gray-400 transition-colors">Admin</button> */}
         </div>
       </div>
     </footer>
